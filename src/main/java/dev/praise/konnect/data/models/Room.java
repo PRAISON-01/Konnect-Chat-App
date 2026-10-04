@@ -1,7 +1,6 @@
 package dev.praise.konnect.data.models;
 
 import jakarta.persistence.*;
-import lombok.Data;
 
 import java.time.LocalDateTime;
 
@@ -18,11 +17,7 @@ public class Room {
     @Column(name  ="created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    public Room(Long id, String roomCode, LocalDateTime createdAt) {
-        this.id = id;
-        this.roomCode = roomCode;
-        this.createdAt = createdAt;
-    }
+
 
     public Long getId() {
         return id;
