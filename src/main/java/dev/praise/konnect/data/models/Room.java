@@ -17,7 +17,18 @@ public class Room {
     @Column(name  ="created_at", nullable = false)
     private LocalDateTime createdAt;
 
+    @Column(name = "room_name", nullable = false)
+    private String roomName;
 
+    @Override
+    public String toString() {
+        return "Room{" +
+                "id=" + id +
+                ", roomCode='" + roomCode + '\'' +
+                ", createdAt=" + createdAt +
+                ", roomName='" + roomName + '\'' +
+                '}';
+    }
 
     public Long getId() {
         return id;
@@ -43,12 +54,11 @@ public class Room {
         this.createdAt = createdAt;
     }
 
-    @Override
-    public String toString() {
-        return "Room{" +
-                "id=" + id +
-                ", roomCode='" + roomCode + '\'' +
-                ", createdAt=" + createdAt +
-                '}';
+    public String getRoomName() {
+        return roomName;
+    }
+
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
     }
 }
