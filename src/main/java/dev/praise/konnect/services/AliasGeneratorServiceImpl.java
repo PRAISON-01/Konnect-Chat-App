@@ -43,8 +43,7 @@ public class AliasGeneratorServiceImpl implements AliasGeneratorService{
         String adjective = adjectives[random.nextInt(adjectives.length)];
         String noun = nouns[random.nextInt(nouns.length)];
 
-        int number = 10 + random.nextInt(90);
-
+        int number = 10 + random.nextInt(90) + 1;
 
         AliasGeneratorResponse response = new AliasGeneratorResponse();
         response.setAlias(adjective + noun + number);
