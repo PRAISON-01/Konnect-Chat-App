@@ -30,7 +30,16 @@ public class RoomServiceImpl implements RoomService {
         room.setRoomCode(code);
         room.setCreatedAt(LocalDateTime.now());
         room.setRoomName(request.getRoomName());
-        return new CreateRoomResponse();
+
+        Room savedRoom = roomRepository.save(room);
+
+        CreateRoomResponse response = new CreateRoomResponse();
+
+        response.setRoomCode(savedRoom.getRoomCode());
+        response.setRoomName(savedRoom.getRoomName());
+        response.setExpiresAt(savedRoom.getCreatedAt().plusDays(7));
+        response.setCreatedAt(savedRoom.getCreatedAt());
+        return response;
     }
 
     private String generateRoomCode() {

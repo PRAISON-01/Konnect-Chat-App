@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -28,12 +29,18 @@ RoomServiceTest {
 
     @BeforeEach
     public void startWihThis() {
-        roomService = new RoomServiceImpl();
+//        roomService = new RoomServiceImpl();
     }
 
     @Test
     public void testThat_createstRoomWithValidRoomCode(){
+
+        Room simulatedSavedRoom = new Room();
+        simulatedSavedRoom.setRoomCode("ABC-123");
+        simulatedSavedRoom.setCreatedAt(LocalDateTime.now());
+
         Mockito.when(roomRepository.findByRoomCode(any(String.class))).thenReturn(Optional.empty());
+        Mockito.when(roomRepository.save(any(Room.class))).thenReturn(simulatedSavedRoom);
 
         CreateRoomRequest request = new CreateRoomRequest();
         request.setRoomName("test_room_name");
