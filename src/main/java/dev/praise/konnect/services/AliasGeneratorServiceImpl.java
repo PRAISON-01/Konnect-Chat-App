@@ -1,12 +1,9 @@
 package dev.praise.konnect.services;
 
-import dev.praise.konnect.dtos.response.AliasGeneratorResponse;
-
 import java.security.SecureRandom;
-import java.util.Random;
 
 public class AliasGeneratorServiceImpl implements AliasGeneratorService{
-    private final String[] adjectives = {
+    private final java.lang.String[] adjectives = {
             "Fantastic", "Stunning", "Fiery", "Brilliant", "Dynamic",
             "Epic", "Fearless", "Vibrant", "Radiant", "Electric",
             "Cosmic", "Mystic", "Stellar", "Lunar", "Solar",
@@ -20,7 +17,7 @@ public class AliasGeneratorServiceImpl implements AliasGeneratorService{
     };
 
 
-    private final String[] nouns = {
+    private final java.lang.String[] nouns = {
             "Panda", "Falcon", "Badger", "Cheetah", "Otter",
             "Raven", "Jaguar", "Phoenix", "Leopard", "Grizzly",
             "Dolphin", "Hawk", "Cobra", "Fox", "Lynx",
@@ -39,14 +36,14 @@ public class AliasGeneratorServiceImpl implements AliasGeneratorService{
 
 
     @Override
-    public AliasGeneratorResponse generateAlias() {
-        String adjective = adjectives[random.nextInt(adjectives.length)];
-        String noun = nouns[random.nextInt(nouns.length)];
+    public String generateAlias() {
+        java.lang.String adjective = adjectives[random.nextInt(adjectives.length)];
+        java.lang.String noun = nouns[random.nextInt(nouns.length)];
 
         int number = 10 + random.nextInt(90) + 1;
 
-        AliasGeneratorResponse response = new AliasGeneratorResponse();
-        response.setAlias(adjective + noun + number);
+        String response = new String();
+        response += adjective + noun + number;
         return response ;
     }
 }

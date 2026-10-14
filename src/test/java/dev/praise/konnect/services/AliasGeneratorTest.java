@@ -1,6 +1,5 @@
 package dev.praise.konnect.services;
 
-import dev.praise.konnect.dtos.response.AliasGeneratorResponse;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -10,11 +9,11 @@ public class AliasGeneratorTest {
     public void testThat_aliasGeneratorGeneratesRandomNamees() {
         AliasGeneratorService aliasService = new AliasGeneratorServiceImpl();
 
-        AliasGeneratorResponse aliasGeneratorResponse = aliasService.generateAlias();
+        String aliasGeneratorResponse = aliasService.generateAlias();
 
         assertThat(aliasGeneratorResponse).isNotNull();
 
-        assertThat(aliasGeneratorResponse.getAlias()).matches("^[A-Za-z]+[0-9]+$");
+        assertThat(aliasGeneratorResponse).matches("^[A-Za-z]+[0-9]+$");
 
     }
 
