@@ -11,4 +11,5 @@ import java.util.List;
 public interface MessageRepository extends JpaRepository<Message, Long> {
     List<Message> findByRoomIdOrderByCreatedAtDesc(Long roomId);
     long countByClientIdAndCreatedAtAfter(String clientId, LocalDateTime timestamp);
+    int deleteByCreatedAtBefore(LocalDateTime threshold);
 }
