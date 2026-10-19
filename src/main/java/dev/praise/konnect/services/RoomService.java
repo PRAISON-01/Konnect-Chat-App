@@ -6,5 +6,5 @@ import dev.praise.konnect.dtos.response.CreateRoomResponse;
 public interface RoomService {
 
     CreateRoomResponse createRoom(CreateRoomRequest request);
-
+    void purgeExpiredRooms();
 }
