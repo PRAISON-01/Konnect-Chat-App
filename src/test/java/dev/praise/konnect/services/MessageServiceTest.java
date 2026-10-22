@@ -3,6 +3,7 @@ package dev.praise.konnect.services;
 import dev.praise.konnect.data.models.Message;
 import dev.praise.konnect.data.models.Room;
 import dev.praise.konnect.data.repositories.MessageRepository;
+import dev.praise.konnect.dtos.request.DeleteMessageRequest;
 import dev.praise.konnect.dtos.request.SendMessageRequest;
 import dev.praise.konnect.dtos.response.SendMessageResponse;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,7 +37,8 @@ public class MessageServiceTest {
     private Message newMessage;
 
     private Room room;
-    
+
+
     @BeforeEach
     void startWithThis() {
 

@@ -7,14 +7,8 @@ import lombok.Data;
 import java.time.LocalDateTime;
 @Data
 public class ValidateTimeLimitResponse {
-
-    private Long id;
-
-    private Room room;
-
-    private String senderAlias;
-
     private String clientId;
-
-    private String content;
+    private boolean allowed;
+    private int remainingMessages;
+    private int seconds;
 }

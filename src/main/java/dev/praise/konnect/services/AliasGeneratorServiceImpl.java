@@ -1,7 +1,10 @@
 package dev.praise.konnect.services;
 
+import org.springframework.stereotype.Service;
+
 import java.security.SecureRandom;
 
+@Service
 public class AliasGeneratorServiceImpl implements AliasGeneratorService{
     private final java.lang.String[] adjectives = {
             "Fantastic", "Stunning", "Fiery", "Brilliant", "Dynamic",

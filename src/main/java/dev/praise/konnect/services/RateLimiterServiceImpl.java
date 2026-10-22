@@ -26,19 +26,21 @@ public class RateLimiterServiceImpl implements RateLimiterService{
 
     @Override
     public ValidateTimeLimitResponse ValidateTimeLimit(ValidateTimeLimitRequest request) {
+        long count = messageRepository.countByClientIdAndCreatedAtAfter(request.getClientId(), LocalDateTime.now().minusSeconds(MAX_SECONDS));
 
-        long messagesCount = messageRepository.countByClientIdAndCreatedAtAfter(request.getClientId(), LocalDateTime.now().minusSeconds(MAX_SECONDS));
-
-        if(messagesCount >= MAX_MESSAGES) {
-            log.warn("Rate Limit Reached Spam Attempt Detected try action again after 30 seconds");
-
-            throw new RateLimiterException("Spam protection triggered. You are restricted to "+ MAX_MESSAGES +" messages every "+ MAX_SECONDS+ " seconds");
+        if (count >= MAX_MESSAGES) {
+            log.warn("Rate limit reached for client {}", request.getClientId());
+            throw new RateLimiterException("You're limited to " + MAX_MESSAGES + " messages every " + MAX_SECONDS + " seconds");
         }
 
-        ValidateTimeLimitResponse reponse = new ValidateTimeLimitResponse();
+        boolean allowed = count < MAX_MESSAGES;
 
-
-        return null;
+        ValidateTimeLimitResponse response = new ValidateTimeLimitResponse();
+        response.setClientId(request.getClientId());
+        response.setAllowed(allowed);
+        response.setRemainingMessages((int) (MAX_MESSAGES - count - 1));
+        response.setSeconds(MAX_SECONDS);
+        return response;
     }
 
 }
