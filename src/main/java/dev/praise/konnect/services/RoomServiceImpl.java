@@ -5,10 +5,10 @@ import dev.praise.konnect.data.repositories.MessageRepository;
 import dev.praise.konnect.data.repositories.RoomRepository;
 import dev.praise.konnect.dtos.request.CreateRoomRequest;
 import dev.praise.konnect.dtos.response.CreateRoomResponse;
+import dev.praise.konnect.exceptions.RoomNotFoundException;
 import dev.praise.konnect.scheduler.RoomExpiryScheduler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
@@ -81,5 +81,18 @@ public class RoomServiceImpl implements RoomService {
         } else {
             log.info("Routine maintenance complete: No rooms found older than 7 days.");
         }
+    }
+
+    @Override
+    public Room getRoomByCode(String roomCode) throws RoomNotFoundException {
+        java.util.Optional<Room> optionalRoom = roomRepository.findByRoomCode(roomCode);
+
+        if (optionalRoom.isEmpty()) {
+            throw new RoomNotFoundException("Room not found with code: " + roomCode);
+        }
+
+        Room room = optionalRoom.get();
+
+        return room;
     }
 }
