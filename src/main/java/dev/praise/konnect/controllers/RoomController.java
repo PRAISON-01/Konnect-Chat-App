@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/room")
+@RequestMapping("/api/rooms")
 public class RoomController {
 
     private final RoomService roomService;
@@ -20,11 +20,14 @@ public class RoomController {
     }
 
 
-    @PostMapping("/createRoom")
-    public ResponseEntity<CreateRoomResponse> createRoom(@RequestBody CreateRoomRequest request) {
+    @PostMapping
+    public ResponseEntity<CreateRoomResponse> createRoom(
+            @RequestBody(required = false) CreateRoomRequest request) {
+        if (request == null) request = new CreateRoomRequest();
         CreateRoomResponse response = roomService.createRoom(request);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
+
 
 
     @GetMapping("/{roomCode}")

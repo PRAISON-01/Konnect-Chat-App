@@ -10,4 +10,5 @@ public class MessageResponse {
     private String senderAlias;
     private String content;
     private LocalDateTime createdAt;
+    private boolean mine;
 }
