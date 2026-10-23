@@ -48,7 +48,7 @@ public class MessageController {
 
         Room room = roomService.getRoomByCode(roomCode);
 
-        Message message = new Message();             // a new entity, so no id can sneak in
+        Message message = new Message();
         message.setRoom(room);
         message.setClientId(clientId);
         message.setContent(body.getContent());
@@ -57,7 +57,7 @@ public class MessageController {
         return new ResponseEntity<>(toResponse(saved, clientId), HttpStatus.CREATED);
     }
 
-    @GetMapping                                      // was "/getMessage"
+    @GetMapping
     public ResponseEntity<List<MessageResponse>> getMessages(
             @PathVariable String roomCode,
             @RequestHeader("X-Client-Token") String clientToken) throws RoomNotFoundException {
