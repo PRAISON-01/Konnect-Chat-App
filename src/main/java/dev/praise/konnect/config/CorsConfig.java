@@ -9,7 +9,7 @@ public class CorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/**")
-                .allowedOrigins("https://KonnectChatApp.vercel.app", "http://localhost:5173/")
+                .allowedOrigins("https://konnect-chat-app.vercel.app/", "http://localhost:5173/")
                 .allowedMethods("GET", "POST", "DELETE")
                 .allowedHeaders("*");
     }
