@@ -29,6 +29,7 @@ public class Message {
     @Column(name = "client_id", nullable = false)
     private String clientId;
 
+    @Convert(converter = dev.praise.konnect.config.MessageCryptoConverter.class)
     @Column(name = "content", nullable = false)
     private String content;
 

@@ -36,7 +36,7 @@ public class GlobalExceptionHandler {
 
 
     @ExceptionHandler({MessageNotFoundException.class, RoomNotFoundException.class})
-    public ResponseEntity<Map<String, Object>> handleNotFound(RuntimeException ex) {
+    public ResponseEntity<Map<String, Object>> handleNotFound(Exception ex) {   // was RuntimeException
         return buildErrorResponse(HttpStatus.NOT_FOUND, ex.getMessage());
     }
 

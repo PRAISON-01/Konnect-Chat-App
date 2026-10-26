@@ -10,6 +10,7 @@ import dev.praise.konnect.exceptions.NotMessageOwnerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -25,6 +26,7 @@ public class MessageServiceImpl implements MessageService {
     public Message sendMessage(Message message) {
         String aliasGeneratorResponse = aliasGeneratorService.generateAlias();
         message.setSenderAlias(aliasGeneratorResponse);
+        message.setCreatedAt(LocalDateTime.now());
         return messageRepository.save(message);
     }
 

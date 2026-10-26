@@ -40,7 +40,11 @@ public class RoomServiceImpl implements RoomService {
         Room room = new Room();
         room.setRoomCode(code);
         room.setCreatedAt(LocalDateTime.now());
-        room.setRoomName(request.getRoomName());
+        String name = request.getRoomName();
+        if (name == null || name.isBlank()) {
+            name = "Room " + code;
+        }
+        room.setRoomName(name);
 
         Room savedRoom = roomRepository.save(room);
 

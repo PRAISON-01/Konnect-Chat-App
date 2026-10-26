@@ -2,9 +2,11 @@ package dev.praise.konnect.controllers;
 
 import dev.praise.konnect.data.models.Message;
 import dev.praise.konnect.data.models.Room;
+import dev.praise.konnect.dtos.request.DeleteMessageRequest;
 import dev.praise.konnect.dtos.request.SendMessageRequest;
 import dev.praise.konnect.dtos.request.ValidateTimeLimitRequest;
 import dev.praise.konnect.dtos.response.MessageResponse;
+import dev.praise.konnect.exceptions.MessageNotFoundException;
 import dev.praise.konnect.exceptions.RoomNotFoundException;
 import dev.praise.konnect.services.ClientSessionService;
 import dev.praise.konnect.services.MessageService;
@@ -16,7 +18,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/api/rooms/{roomCode}/messages")   // was "/rooms/{roomCode}/messages"
+@RestController
+@RequestMapping("/api/rooms/{roomCode}/messages")
 public class MessageController {
 
 
@@ -71,6 +74,22 @@ public class MessageController {
         return ResponseEntity.ok(list);
     }
 
+    @DeleteMapping("/{messageId}")
+    public ResponseEntity<Void> deleteMessage(
+            @PathVariable String roomCode,
+            @PathVariable Long messageId,
+            @RequestHeader("X-Client-Token") String clientToken) throws MessageNotFoundException {
+
+        String clientId = clientSessionService.resolveClientId(clientToken);
+
+        DeleteMessageRequest request = new DeleteMessageRequest();
+        request.setMessageId(messageId);
+        request.setClientId(clientId);
+        messageService.deleteMessage(request);
+
+        return ResponseEntity.noContent().build();
+    }
+
     private MessageResponse toResponse(Message msg, String viewerClientId) {
         MessageResponse r = new MessageResponse();
         r.setId(msg.getId());
@@ -78,7 +97,7 @@ public class MessageController {
         r.setSenderAlias(msg.getSenderAlias());
         r.setContent(msg.getContent());
         r.setCreatedAt(msg.getCreatedAt());
-        r.setMine(msg.getClientId().equals(viewerClientId));   // never send clientId itself
+        r.setMine(msg.getClientId().equals(viewerClientId));
         return r;
     }
 }

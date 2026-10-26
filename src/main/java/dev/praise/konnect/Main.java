@@ -10,7 +10,7 @@ import java.util.TimeZone;
 @EnableScheduling
 public class Main{
     public static void main(String[] args) {
-        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC+1"));
         SpringApplication.run(Main.class, args);
 
     }
